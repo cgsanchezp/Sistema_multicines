@@ -1,0 +1,1002 @@
+USE [master]
+GO
+/****** Object:  Database [IndieDB]    Script Date: 6/10/2023 18:32:04 ******/
+CREATE DATABASE [IndieDB]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'CineBDs_dat1', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\IndieDB_dat1.mdf' , SIZE = 40960KB , MAXSIZE = 102400KB , FILEGROWTH = 8192KB )
+ LOG ON 
+( NAME = N'CineBDs_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\IndieDB_log.ldf' , SIZE = 20480KB , MAXSIZE = 51200KB , FILEGROWTH = 5120KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [IndieDB] SET COMPATIBILITY_LEVEL = 100
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [IndieDB].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [IndieDB] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [IndieDB] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [IndieDB] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [IndieDB] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [IndieDB] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [IndieDB] SET AUTO_CLOSE ON 
+GO
+ALTER DATABASE [IndieDB] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [IndieDB] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [IndieDB] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [IndieDB] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [IndieDB] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [IndieDB] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [IndieDB] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [IndieDB] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [IndieDB] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [IndieDB] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [IndieDB] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [IndieDB] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [IndieDB] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [IndieDB] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [IndieDB] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [IndieDB] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [IndieDB] SET RECOVERY SIMPLE 
+GO
+ALTER DATABASE [IndieDB] SET  MULTI_USER 
+GO
+ALTER DATABASE [IndieDB] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [IndieDB] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [IndieDB] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [IndieDB] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+ALTER DATABASE [IndieDB] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [IndieDB] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'IndieDB', N'ON'
+GO
+ALTER DATABASE [IndieDB] SET QUERY_STORE = OFF
+GO
+USE [IndieDB]
+GO
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Acceso]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Acceso](
+	[IdAcceso] [char](5) NOT NULL,
+	[Cod_personal] [char](6) NOT NULL,
+	[cod_tipo_cargo] [char](5) NULL,
+	[usuario] [varchar](10) NULL,
+	[clave] [char](5) NULL,
+ CONSTRAINT [PK_Acceso] PRIMARY KEY CLUSTERED 
+(
+	[IdAcceso] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Administrador]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Administrador](
+	[cod_Administrador] [char](5) NOT NULL,
+	[cant_horas_trabajadas] [int] NULL,
+	[descripcion] [varchar](30) NULL,
+	[cod_horario] [char](6) NULL,
+	[Cod_personal] [char](6) NULL,
+ CONSTRAINT [pk_adm] PRIMARY KEY CLUSTERED 
+(
+	[cod_Administrador] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Boleta_consumo]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Boleta_consumo](
+	[cod_boleta_consumo] [char](9) NOT NULL,
+	[importe_total] [decimal](8, 2) NULL,
+	[fecha] [datetime] NULL,
+	[descripcion] [varchar](30) NULL,
+	[cod_cliente] [char](6) NULL,
+ CONSTRAINT [pk_boleta] PRIMARY KEY CLUSTERED 
+(
+	[cod_boleta_consumo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[boleteros]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[boleteros](
+	[cod_boleteros] [char](6) NOT NULL,
+	[record_ventas_boletos] [int] NULL,
+	[cant_horas_trabajadas] [varchar](30) NULL,
+	[cod_horario] [char](6) NULL,
+	[Cod_personal] [char](6) NULL,
+ CONSTRAINT [pk_Bolt] PRIMARY KEY CLUSTERED 
+(
+	[cod_boleteros] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Boleto]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Boleto](
+	[cod_boleto] [char](9) NOT NULL,
+	[fecha_pago] [datetime] NULL,
+	[descripcion] [varchar](30) NULL,
+	[costo] [decimal](8, 2) NULL,
+	[tipo_pago] [varchar](30) NULL,
+	[cod_cliente] [char](6) NULL,
+	[cod_ventanilla] [char](6) NULL,
+	[cod_pelicula] [char](5) NULL,
+	[hora de proyeccion] [datetime] NULL,
+	[nro_sala] [int] NULL,
+ CONSTRAINT [pk_bol] PRIMARY KEY CLUSTERED 
+(
+	[cod_boleto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[cajero]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[cajero](
+	[cod_cajero] [char](5) NOT NULL,
+	[horario_atencion] [varchar](20) NULL,
+	[cant_horas_trabajadas] [int] NULL,
+	[record_ventas_boletos] [int] NULL,
+	[descripcion] [varchar](30) NULL,
+	[Cod_personal] [char](6) NULL,
+ CONSTRAINT [pk_caj] PRIMARY KEY CLUSTERED 
+(
+	[cod_cajero] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Clientes]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Clientes](
+	[Cod_cliente] [char](6) NOT NULL,
+	[nombre] [varchar](30) NULL,
+	[apellidos] [varchar](30) NULL,
+	[Dni] [char](8) NULL,
+	[cod_distrito] [char](6) NULL,
+	[telefono] [char](8) NULL,
+	[Tipo_cliente] [varchar](30) NULL,
+	[direccion] [varchar](30) NULL,
+	[sexo] [char](1) NULL,
+	[e_mail] [varchar](30) NULL,
+ CONSTRAINT [pk_clie] PRIMARY KEY CLUSTERED 
+(
+	[Cod_cliente] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [unidniCliente] UNIQUE NONCLUSTERED 
+(
+	[Dni] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[contB_consumo_producto]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[contB_consumo_producto](
+	[cod_boleta_consumo] [char](9) NOT NULL,
+	[cod_producto_consumo] [char](6) NOT NULL,
+	[cod_cliente] [char](6) NOT NULL,
+	[descripcion] [varchar](30) NULL,
+	[importe_total] [decimal](8, 2) NOT NULL,
+ CONSTRAINT [pk_contb_c_p01] PRIMARY KEY CLUSTERED 
+(
+	[cod_producto_consumo] ASC,
+	[cod_cliente] ASC,
+	[cod_boleta_consumo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Departamento]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Departamento](
+	[cod_departamento] [char](6) NOT NULL,
+	[cod_pais] [char](6) NOT NULL,
+	[nombre] [varchar](25) NULL,
+	[cant_distritos] [int] NULL,
+	[cant_habitantes] [int] NULL,
+	[descripcion] [varchar](40) NULL,
+ CONSTRAINT [pk_dep] PRIMARY KEY CLUSTERED 
+(
+	[cod_departamento] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Distrito]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Distrito](
+	[cod_distrito] [char](6) NOT NULL,
+	[cod_provincia] [char](6) NOT NULL,
+	[cod_departamento] [char](6) NOT NULL,
+	[cod_pais] [char](6) NOT NULL,
+	[nombre_distrito] [varchar](25) NULL,
+	[cant_habitantes] [int] NULL,
+ CONSTRAINT [pk_dis] PRIMARY KEY CLUSTERED 
+(
+	[cod_distrito] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[histroial_reg]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[histroial_reg](
+	[idregistro] [int] IDENTITY(1,1) NOT NULL,
+	[detalllereg] [varchar](100) NULL,
+	[fechasreg] [datetime] NULL,
+	[usuario] [varchar](15) NULL,
+	[servidor] [varchar](15) NULL,
+ CONSTRAINT [pk_reg] PRIMARY KEY CLUSTERED 
+(
+	[idregistro] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[horario]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[horario](
+	[Cod_horario] [char](6) NOT NULL,
+	[hora_ingreso] [varchar](15) NULL,
+	[hora_salida] [varchar](15) NULL,
+	[turno] [varchar](20) NULL,
+ CONSTRAINT [pk_hora] PRIMARY KEY CLUSTERED 
+(
+	[Cod_horario] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Inversion]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Inversion](
+	[cod_inversion] [char](6) NOT NULL,
+	[costo_sueldo_personal] [decimal](8, 2) NULL,
+	[costo_energia_electrica] [decimal](8, 2) NULL,
+	[costo_mantenimiento_equipos] [decimal](8, 2) NULL,
+	[costo_productos_consumo] [decimal](8, 2) NULL,
+	[alquiler_del_local] [decimal](8, 2) NULL,
+	[costo_servicio_agua_desgue] [decimal](8, 2) NULL,
+	[costo_servicio_internet] [decimal](8, 2) NULL,
+	[costo_servicio_telefonia] [decimal](8, 2) NULL,
+	[cod_sede] [char](6) NULL,
+ CONSTRAINT [pk_Imver] PRIMARY KEY CLUSTERED 
+(
+	[cod_inversion] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Pais]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Pais](
+	[cod_pais] [char](6) NOT NULL,
+	[nombre] [varchar](20) NULL,
+	[capital] [varchar](20) NULL,
+	[cant_departamentos] [int] NULL,
+	[cant_habitantes] [int] NULL,
+	[descripcion] [varchar](40) NULL,
+ CONSTRAINT [pk_pais00] PRIMARY KEY CLUSTERED 
+(
+	[cod_pais] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Pelicula]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Pelicula](
+	[cod_pelicula] [char](5) NOT NULL,
+	[nombre_peli] [varchar](30) NULL,
+	[genero] [varchar](20) NULL,
+	[director] [varchar](20) NULL,
+	[duracion] [varchar](15) NULL,
+	[actores] [varchar](30) NULL,
+	[calificacion] [int] NULL,
+	[record_asistencia] [int] NULL,
+	[pais_origen] [varchar](20) NULL,
+	[situacion] [varchar](30) NULL,
+	[fecha_estreno] [varchar](15) NULL,
+ CONSTRAINT [pk_peli] PRIMARY KEY CLUSTERED 
+(
+	[cod_pelicula] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[pers_almacen]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[pers_almacen](
+	[cod_pers_almacen] [char](9) NOT NULL,
+	[cant_horas_trabajadas] [int] NULL,
+	[descripcion] [varchar](30) NULL,
+	[cod_horario] [char](6) NULL,
+	[Cod_personal] [char](6) NULL,
+ CONSTRAINT [PK_pers_almacen] PRIMARY KEY CLUSTERED 
+(
+	[cod_pers_almacen] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[pers_limpieza]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[pers_limpieza](
+	[cod_pers_limpieza] [char](6) NOT NULL,
+	[cant_horas_trabajadas] [int] NULL,
+	[descripcion] [varchar](30) NULL,
+	[cod_horario] [char](6) NULL,
+	[Cod_personal] [char](6) NULL,
+ CONSTRAINT [pk_per_L] PRIMARY KEY CLUSTERED 
+(
+	[cod_pers_limpieza] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Personal]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Personal](
+	[Cod_personal] [char](6) NOT NULL,
+	[nombre] [varchar](30) NULL,
+	[apellidos] [varchar](30) NULL,
+	[Dni] [char](8) NULL,
+	[telefono] [char](8) NULL,
+	[direccion] [varchar](30) NULL,
+	[sexo] [char](1) NULL,
+	[condicion] [varchar](30) NULL,
+	[cod_tipo_cargo] [char](5) NULL,
+	[cod_distrito] [char](6) NULL,
+	[cod_Pais] [char](6) NULL,
+ CONSTRAINT [pk_pers] PRIMARY KEY CLUSTERED 
+(
+	[Cod_personal] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [unidniPersonal] UNIQUE NONCLUSTERED 
+(
+	[Dni] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[producto_consumo]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[producto_consumo](
+	[cod_Producto_Consumo] [char](6) NOT NULL,
+	[nombre] [varchar](30) NULL,
+	[fecha_emision] [datetime] NULL,
+	[fecha_vencimiento] [datetime] NULL,
+	[tipo_producto] [varchar](30) NULL,
+	[precio_costo] [money] NULL,
+	[precio_venta] [money] NULL,
+	[igv]  AS ([precio_venta]*(0.19)),
+	[proovedor] [varchar](20) NULL,
+	[descripcion] [varchar](30) NULL,
+	[cod_inversion] [char](6) NULL,
+	[Peso] [varchar](10) NULL,
+ CONSTRAINT [pk_prod] PRIMARY KEY CLUSTERED 
+(
+	[cod_Producto_Consumo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Promocion]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Promocion](
+	[cod_promocion] [char](6) NOT NULL,
+	[nombre_promocion] [varchar](30) NULL,
+	[beneficios] [varchar](30) NULL,
+	[fecha_declaracion] [datetime] NULL,
+	[fecha_finalizacion] [datetime] NULL,
+ CONSTRAINT [pk_pro] PRIMARY KEY CLUSTERED 
+(
+	[cod_promocion] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Provincia]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Provincia](
+	[cod_provincia] [char](6) NOT NULL,
+	[cod_departamento] [char](6) NOT NULL,
+	[cod_pais] [char](6) NOT NULL,
+	[nombre] [varchar](25) NULL,
+ CONSTRAINT [pk_prov] PRIMARY KEY CLUSTERED 
+(
+	[cod_provincia] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[proyectistas]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[proyectistas](
+	[cod_proyectista] [char](9) NOT NULL,
+	[cant_horas_trabajadas] [int] NULL,
+	[descripcion] [varchar](20) NULL,
+	[cod_horario] [char](6) NULL,
+	[Cod_personal] [char](6) NULL,
+ CONSTRAINT [pk_proye] PRIMARY KEY CLUSTERED 
+(
+	[cod_proyectista] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[sala_proyec_peli]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[sala_proyec_peli](
+	[cod_sala] [char](6) NOT NULL,
+	[cod_pelicula] [char](5) NOT NULL,
+	[descripcion] [varchar](30) NULL,
+ CONSTRAINT [pk_contb_c_p00] PRIMARY KEY CLUSTERED 
+(
+	[cod_sala] ASC,
+	[cod_pelicula] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[sala_proyeccion]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[sala_proyeccion](
+	[cod_sala] [char](6) NOT NULL,
+	[nro_sala] [int] NULL,
+	[horario] [varchar](20) NULL,
+	[capacidad_personas] [int] NULL,
+	[cod_sede] [char](6) NULL,
+ CONSTRAINT [Pk_salapro] PRIMARY KEY CLUSTERED 
+(
+	[cod_sala] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[salario]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[salario](
+	[Cod_sueldo] [char](6) NOT NULL,
+	[sueldo_basico] [decimal](8, 2) NULL,
+	[bonificacion] [decimal](8, 2) NULL,
+	[descuento] [decimal](8, 2) NULL,
+	[sueldo_total] [decimal](8, 2) NULL,
+	[cod_tipo_cargo] [char](5) NULL,
+	[Cod_personal] [char](6) NOT NULL,
+ CONSTRAINT [pk_sala] PRIMARY KEY CLUSTERED 
+(
+	[Cod_sueldo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Sede]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Sede](
+	[cod_sede] [char](6) NOT NULL,
+	[cod_distrito] [char](6) NOT NULL,
+	[cod_provincia] [char](6) NOT NULL,
+	[cod_departamento] [char](6) NOT NULL,
+	[cod_pais] [char](6) NOT NULL,
+	[nombre] [varchar](20) NULL,
+	[cant_sala] [int] NULL,
+	[descripcion] [varchar](30) NULL,
+ CONSTRAINT [pk_sede] PRIMARY KEY CLUSTERED 
+(
+	[cod_sede] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[seguridad]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[seguridad](
+	[cod_seguridad] [char](5) NOT NULL,
+	[cant_horas_trabajadas] [int] NULL,
+	[descripcion] [varchar](30) NULL,
+	[Cod_horario] [char](6) NULL,
+	[Cod_personal] [char](6) NULL,
+ CONSTRAINT [pk_seg] PRIMARY KEY CLUSTERED 
+(
+	[cod_seguridad] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Streamers]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Streamers](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [nvarchar](max) NULL,
+	[Url] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Streamers] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Tarjeta]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Tarjeta](
+	[cod_tarjeta] [char](6) NOT NULL,
+	[fecha_emision] [datetime] NULL,
+	[record_boletos_comprados] [int] NULL,
+	[descripcion] [varchar](30) NULL,
+	[cod_cliente] [char](6) NULL,
+	[cod_promocion] [char](6) NULL,
+ CONSTRAINT [pk_Tarj] PRIMARY KEY CLUSTERED 
+(
+	[cod_tarjeta] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tecnicos_mantenimiento]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tecnicos_mantenimiento](
+	[cod_tecnico_mantenimiento] [char](9) NOT NULL,
+	[cant_horas_trabajadas] [int] NULL,
+	[descripcion] [varchar](30) NULL,
+	[cod_horario] [char](6) NULL,
+	[Cod_personal] [char](6) NULL,
+ CONSTRAINT [pk_tec] PRIMARY KEY CLUSTERED 
+(
+	[cod_tecnico_mantenimiento] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[telefono]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[telefono](
+	[Cod_tip_telefono] [char](6) NOT NULL,
+	[descripcion] [varchar](30) NULL,
+	[Cod_cliente] [char](6) NULL,
+ CONSTRAINT [pk_tele] PRIMARY KEY CLUSTERED 
+(
+	[Cod_tip_telefono] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tipo_cargo]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tipo_cargo](
+	[cod_tipo_cargo] [char](5) NOT NULL,
+	[descripcion] [varchar](30) NULL,
+ CONSTRAINT [pk_cargo] PRIMARY KEY CLUSTERED 
+(
+	[cod_tipo_cargo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[vendedor_producto_consumo]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[vendedor_producto_consumo](
+	[cod_vendedor_producto_consumo] [char](9) NOT NULL,
+	[record_ventas_productos] [int] NULL,
+	[cant_horas_trabajadas] [int] NULL,
+	[descripcion] [varchar](20) NULL,
+	[cod_horario] [char](6) NULL,
+	[Cod_personal] [char](6) NULL,
+ CONSTRAINT [pk_vend] PRIMARY KEY CLUSTERED 
+(
+	[cod_vendedor_producto_consumo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ventanilla]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ventanilla](
+	[cod_ventanilla] [char](6) NOT NULL,
+	[Nro_ventanilla] [int] NULL,
+	[horario_atencion] [varchar](30) NULL,
+	[tipo_pago] [varchar](30) NULL,
+	[cod_boleteros] [char](6) NULL,
+	[cod_sede] [char](6) NULL,
+ CONSTRAINT [pk_vent] PRIMARY KEY CLUSTERED 
+(
+	[cod_ventanilla] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Videos]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Videos](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Nombre] [nvarchar](max) NULL,
+	[StreamerId] [nvarchar](max) NULL,
+	[StreamerId1] [int] NULL,
+ CONSTRAINT [PK_Videos] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Videos_StreamerId1]    Script Date: 6/10/2023 18:32:04 ******/
+CREATE NONCLUSTERED INDEX [IX_Videos_StreamerId1] ON [dbo].[Videos]
+(
+	[StreamerId1] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Acceso]  WITH CHECK ADD  CONSTRAINT [FK_Acceso_Personal] FOREIGN KEY([cod_tipo_cargo])
+REFERENCES [dbo].[tipo_cargo] ([cod_tipo_cargo])
+GO
+ALTER TABLE [dbo].[Acceso] CHECK CONSTRAINT [FK_Acceso_Personal]
+GO
+ALTER TABLE [dbo].[Administrador]  WITH CHECK ADD  CONSTRAINT [fk_adm1] FOREIGN KEY([Cod_personal])
+REFERENCES [dbo].[Personal] ([Cod_personal])
+GO
+ALTER TABLE [dbo].[Administrador] CHECK CONSTRAINT [fk_adm1]
+GO
+ALTER TABLE [dbo].[Administrador]  WITH CHECK ADD  CONSTRAINT [FK_Administrador_horario] FOREIGN KEY([cod_horario])
+REFERENCES [dbo].[horario] ([Cod_horario])
+GO
+ALTER TABLE [dbo].[Administrador] CHECK CONSTRAINT [FK_Administrador_horario]
+GO
+ALTER TABLE [dbo].[Boleta_consumo]  WITH CHECK ADD  CONSTRAINT [fk_boleta01] FOREIGN KEY([cod_cliente])
+REFERENCES [dbo].[Clientes] ([Cod_cliente])
+GO
+ALTER TABLE [dbo].[Boleta_consumo] CHECK CONSTRAINT [fk_boleta01]
+GO
+ALTER TABLE [dbo].[boleteros]  WITH CHECK ADD  CONSTRAINT [FK_boleteros_horario] FOREIGN KEY([cod_horario])
+REFERENCES [dbo].[horario] ([Cod_horario])
+GO
+ALTER TABLE [dbo].[boleteros] CHECK CONSTRAINT [FK_boleteros_horario]
+GO
+ALTER TABLE [dbo].[boleteros]  WITH CHECK ADD  CONSTRAINT [fk_Bolt01] FOREIGN KEY([Cod_personal])
+REFERENCES [dbo].[Personal] ([Cod_personal])
+GO
+ALTER TABLE [dbo].[boleteros] CHECK CONSTRAINT [fk_Bolt01]
+GO
+ALTER TABLE [dbo].[Boleto]  WITH CHECK ADD  CONSTRAINT [FK_Boleto_sala] FOREIGN KEY([cod_boleto])
+REFERENCES [dbo].[Boleto] ([cod_boleto])
+GO
+ALTER TABLE [dbo].[Boleto] CHECK CONSTRAINT [FK_Boleto_sala]
+GO
+ALTER TABLE [dbo].[cajero]  WITH CHECK ADD  CONSTRAINT [FK_cajero_Personal] FOREIGN KEY([Cod_personal])
+REFERENCES [dbo].[Personal] ([Cod_personal])
+GO
+ALTER TABLE [dbo].[cajero] CHECK CONSTRAINT [FK_cajero_Personal]
+GO
+ALTER TABLE [dbo].[Clientes]  WITH CHECK ADD  CONSTRAINT [FK_Clientes_distrito] FOREIGN KEY([cod_distrito])
+REFERENCES [dbo].[Distrito] ([cod_distrito])
+GO
+ALTER TABLE [dbo].[Clientes] CHECK CONSTRAINT [FK_Clientes_distrito]
+GO
+ALTER TABLE [dbo].[Departamento]  WITH CHECK ADD  CONSTRAINT [fk_dep1] FOREIGN KEY([cod_pais])
+REFERENCES [dbo].[Pais] ([cod_pais])
+GO
+ALTER TABLE [dbo].[Departamento] CHECK CONSTRAINT [fk_dep1]
+GO
+ALTER TABLE [dbo].[Distrito]  WITH CHECK ADD  CONSTRAINT [fk_dis] FOREIGN KEY([cod_provincia])
+REFERENCES [dbo].[Provincia] ([cod_provincia])
+GO
+ALTER TABLE [dbo].[Distrito] CHECK CONSTRAINT [fk_dis]
+GO
+ALTER TABLE [dbo].[Distrito]  WITH CHECK ADD  CONSTRAINT [fk_dis1] FOREIGN KEY([cod_provincia])
+REFERENCES [dbo].[Provincia] ([cod_provincia])
+GO
+ALTER TABLE [dbo].[Distrito] CHECK CONSTRAINT [fk_dis1]
+GO
+ALTER TABLE [dbo].[Distrito]  WITH CHECK ADD  CONSTRAINT [fk_dis2] FOREIGN KEY([cod_departamento])
+REFERENCES [dbo].[Departamento] ([cod_departamento])
+GO
+ALTER TABLE [dbo].[Distrito] CHECK CONSTRAINT [fk_dis2]
+GO
+ALTER TABLE [dbo].[Distrito]  WITH CHECK ADD  CONSTRAINT [fk_dis3] FOREIGN KEY([cod_provincia])
+REFERENCES [dbo].[Provincia] ([cod_provincia])
+GO
+ALTER TABLE [dbo].[Distrito] CHECK CONSTRAINT [fk_dis3]
+GO
+ALTER TABLE [dbo].[Distrito]  WITH CHECK ADD  CONSTRAINT [fk_dis4] FOREIGN KEY([cod_pais])
+REFERENCES [dbo].[Pais] ([cod_pais])
+GO
+ALTER TABLE [dbo].[Distrito] CHECK CONSTRAINT [fk_dis4]
+GO
+ALTER TABLE [dbo].[Inversion]  WITH CHECK ADD  CONSTRAINT [fk_inver1] FOREIGN KEY([cod_sede])
+REFERENCES [dbo].[Sede] ([cod_sede])
+GO
+ALTER TABLE [dbo].[Inversion] CHECK CONSTRAINT [fk_inver1]
+GO
+ALTER TABLE [dbo].[pers_almacen]  WITH CHECK ADD  CONSTRAINT [FK_pers_almacen_horario] FOREIGN KEY([cod_horario])
+REFERENCES [dbo].[horario] ([Cod_horario])
+GO
+ALTER TABLE [dbo].[pers_almacen] CHECK CONSTRAINT [FK_pers_almacen_horario]
+GO
+ALTER TABLE [dbo].[pers_almacen]  WITH CHECK ADD  CONSTRAINT [FK_pers_almacen_Personal] FOREIGN KEY([Cod_personal])
+REFERENCES [dbo].[Personal] ([Cod_personal])
+GO
+ALTER TABLE [dbo].[pers_almacen] CHECK CONSTRAINT [FK_pers_almacen_Personal]
+GO
+ALTER TABLE [dbo].[pers_limpieza]  WITH CHECK ADD  CONSTRAINT [fk_per_L02] FOREIGN KEY([cod_horario])
+REFERENCES [dbo].[horario] ([Cod_horario])
+GO
+ALTER TABLE [dbo].[pers_limpieza] CHECK CONSTRAINT [fk_per_L02]
+GO
+ALTER TABLE [dbo].[pers_limpieza]  WITH CHECK ADD  CONSTRAINT [FK_pers_limpieza_Personal] FOREIGN KEY([Cod_personal])
+REFERENCES [dbo].[Personal] ([Cod_personal])
+GO
+ALTER TABLE [dbo].[pers_limpieza] CHECK CONSTRAINT [FK_pers_limpieza_Personal]
+GO
+ALTER TABLE [dbo].[Personal]  WITH CHECK ADD  CONSTRAINT [fk_pers] FOREIGN KEY([cod_tipo_cargo])
+REFERENCES [dbo].[tipo_cargo] ([cod_tipo_cargo])
+GO
+ALTER TABLE [dbo].[Personal] CHECK CONSTRAINT [fk_pers]
+GO
+ALTER TABLE [dbo].[Personal]  WITH CHECK ADD  CONSTRAINT [FK_Personal_distrito] FOREIGN KEY([cod_distrito])
+REFERENCES [dbo].[Distrito] ([cod_distrito])
+GO
+ALTER TABLE [dbo].[Personal] CHECK CONSTRAINT [FK_Personal_distrito]
+GO
+ALTER TABLE [dbo].[Provincia]  WITH CHECK ADD  CONSTRAINT [fk_prov1] FOREIGN KEY([cod_departamento])
+REFERENCES [dbo].[Departamento] ([cod_departamento])
+GO
+ALTER TABLE [dbo].[Provincia] CHECK CONSTRAINT [fk_prov1]
+GO
+ALTER TABLE [dbo].[Provincia]  WITH CHECK ADD  CONSTRAINT [fk_prov2] FOREIGN KEY([cod_departamento])
+REFERENCES [dbo].[Departamento] ([cod_departamento])
+GO
+ALTER TABLE [dbo].[Provincia] CHECK CONSTRAINT [fk_prov2]
+GO
+ALTER TABLE [dbo].[Provincia]  WITH CHECK ADD  CONSTRAINT [fk_prov3] FOREIGN KEY([cod_pais])
+REFERENCES [dbo].[Pais] ([cod_pais])
+GO
+ALTER TABLE [dbo].[Provincia] CHECK CONSTRAINT [fk_prov3]
+GO
+ALTER TABLE [dbo].[proyectistas]  WITH CHECK ADD  CONSTRAINT [fk_proye01] FOREIGN KEY([Cod_personal])
+REFERENCES [dbo].[Personal] ([Cod_personal])
+GO
+ALTER TABLE [dbo].[proyectistas] CHECK CONSTRAINT [fk_proye01]
+GO
+ALTER TABLE [dbo].[proyectistas]  WITH CHECK ADD  CONSTRAINT [fk_proye1] FOREIGN KEY([cod_horario])
+REFERENCES [dbo].[horario] ([Cod_horario])
+GO
+ALTER TABLE [dbo].[proyectistas] CHECK CONSTRAINT [fk_proye1]
+GO
+ALTER TABLE [dbo].[sala_proyeccion]  WITH CHECK ADD  CONSTRAINT [fk_salapro1] FOREIGN KEY([cod_sede])
+REFERENCES [dbo].[Sede] ([cod_sede])
+GO
+ALTER TABLE [dbo].[sala_proyeccion] CHECK CONSTRAINT [fk_salapro1]
+GO
+ALTER TABLE [dbo].[salario]  WITH CHECK ADD  CONSTRAINT [fk_sala01] FOREIGN KEY([cod_tipo_cargo])
+REFERENCES [dbo].[tipo_cargo] ([cod_tipo_cargo])
+GO
+ALTER TABLE [dbo].[salario] CHECK CONSTRAINT [fk_sala01]
+GO
+ALTER TABLE [dbo].[salario]  WITH CHECK ADD  CONSTRAINT [fk_sala02] FOREIGN KEY([Cod_personal])
+REFERENCES [dbo].[Personal] ([Cod_personal])
+GO
+ALTER TABLE [dbo].[salario] CHECK CONSTRAINT [fk_sala02]
+GO
+ALTER TABLE [dbo].[Sede]  WITH CHECK ADD  CONSTRAINT [fk_sede1] FOREIGN KEY([cod_distrito])
+REFERENCES [dbo].[Distrito] ([cod_distrito])
+GO
+ALTER TABLE [dbo].[Sede] CHECK CONSTRAINT [fk_sede1]
+GO
+ALTER TABLE [dbo].[Sede]  WITH CHECK ADD  CONSTRAINT [fk_sede2] FOREIGN KEY([cod_provincia])
+REFERENCES [dbo].[Provincia] ([cod_provincia])
+GO
+ALTER TABLE [dbo].[Sede] CHECK CONSTRAINT [fk_sede2]
+GO
+ALTER TABLE [dbo].[Sede]  WITH CHECK ADD  CONSTRAINT [fk_sede3] FOREIGN KEY([cod_departamento])
+REFERENCES [dbo].[Departamento] ([cod_departamento])
+GO
+ALTER TABLE [dbo].[Sede] CHECK CONSTRAINT [fk_sede3]
+GO
+ALTER TABLE [dbo].[Sede]  WITH CHECK ADD  CONSTRAINT [fk_sede4] FOREIGN KEY([cod_pais])
+REFERENCES [dbo].[Pais] ([cod_pais])
+GO
+ALTER TABLE [dbo].[Sede] CHECK CONSTRAINT [fk_sede4]
+GO
+ALTER TABLE [dbo].[seguridad]  WITH CHECK ADD  CONSTRAINT [fk_seg02] FOREIGN KEY([Cod_horario])
+REFERENCES [dbo].[horario] ([Cod_horario])
+GO
+ALTER TABLE [dbo].[seguridad] CHECK CONSTRAINT [fk_seg02]
+GO
+ALTER TABLE [dbo].[seguridad]  WITH CHECK ADD  CONSTRAINT [FK_seguridad_Personal] FOREIGN KEY([Cod_personal])
+REFERENCES [dbo].[Personal] ([Cod_personal])
+GO
+ALTER TABLE [dbo].[seguridad] CHECK CONSTRAINT [FK_seguridad_Personal]
+GO
+ALTER TABLE [dbo].[Tarjeta]  WITH CHECK ADD  CONSTRAINT [fk_tarj1] FOREIGN KEY([cod_cliente])
+REFERENCES [dbo].[Clientes] ([Cod_cliente])
+GO
+ALTER TABLE [dbo].[Tarjeta] CHECK CONSTRAINT [fk_tarj1]
+GO
+ALTER TABLE [dbo].[Tarjeta]  WITH CHECK ADD  CONSTRAINT [fk_tarj2] FOREIGN KEY([cod_promocion])
+REFERENCES [dbo].[Promocion] ([cod_promocion])
+GO
+ALTER TABLE [dbo].[Tarjeta] CHECK CONSTRAINT [fk_tarj2]
+GO
+ALTER TABLE [dbo].[tecnicos_mantenimiento]  WITH CHECK ADD  CONSTRAINT [FK_tecnicos_mantenimiento_horario] FOREIGN KEY([cod_horario])
+REFERENCES [dbo].[horario] ([Cod_horario])
+GO
+ALTER TABLE [dbo].[tecnicos_mantenimiento] CHECK CONSTRAINT [FK_tecnicos_mantenimiento_horario]
+GO
+ALTER TABLE [dbo].[tecnicos_mantenimiento]  WITH CHECK ADD  CONSTRAINT [FK_tecnicos_mantenimiento_tecnicos_mantenimiento] FOREIGN KEY([Cod_personal])
+REFERENCES [dbo].[Personal] ([Cod_personal])
+GO
+ALTER TABLE [dbo].[tecnicos_mantenimiento] CHECK CONSTRAINT [FK_tecnicos_mantenimiento_tecnicos_mantenimiento]
+GO
+ALTER TABLE [dbo].[telefono]  WITH CHECK ADD  CONSTRAINT [Fk_tele01] FOREIGN KEY([Cod_cliente])
+REFERENCES [dbo].[Clientes] ([Cod_cliente])
+GO
+ALTER TABLE [dbo].[telefono] CHECK CONSTRAINT [Fk_tele01]
+GO
+ALTER TABLE [dbo].[vendedor_producto_consumo]  WITH CHECK ADD  CONSTRAINT [fk_Nvend01] FOREIGN KEY([Cod_personal])
+REFERENCES [dbo].[Personal] ([Cod_personal])
+GO
+ALTER TABLE [dbo].[vendedor_producto_consumo] CHECK CONSTRAINT [fk_Nvend01]
+GO
+ALTER TABLE [dbo].[vendedor_producto_consumo]  WITH CHECK ADD  CONSTRAINT [fk_vend02] FOREIGN KEY([cod_horario])
+REFERENCES [dbo].[horario] ([Cod_horario])
+GO
+ALTER TABLE [dbo].[vendedor_producto_consumo] CHECK CONSTRAINT [fk_vend02]
+GO
+ALTER TABLE [dbo].[ventanilla]  WITH CHECK ADD  CONSTRAINT [pk_vent01] FOREIGN KEY([cod_sede])
+REFERENCES [dbo].[Sede] ([cod_sede])
+GO
+ALTER TABLE [dbo].[ventanilla] CHECK CONSTRAINT [pk_vent01]
+GO
+ALTER TABLE [dbo].[ventanilla]  WITH CHECK ADD  CONSTRAINT [pk_vent02] FOREIGN KEY([cod_boleteros])
+REFERENCES [dbo].[boleteros] ([cod_boleteros])
+GO
+ALTER TABLE [dbo].[ventanilla] CHECK CONSTRAINT [pk_vent02]
+GO
+ALTER TABLE [dbo].[Videos]  WITH CHECK ADD  CONSTRAINT [FK_Videos_Streamers_StreamerId1] FOREIGN KEY([StreamerId1])
+REFERENCES [dbo].[Streamers] ([Id])
+GO
+ALTER TABLE [dbo].[Videos] CHECK CONSTRAINT [FK_Videos_Streamers_StreamerId1]
+GO
+ALTER TABLE [dbo].[Clientes]  WITH CHECK ADD  CONSTRAINT [ck_sex01] CHECK  (([sexo]='F' OR [sexo]='M'))
+GO
+ALTER TABLE [dbo].[Clientes] CHECK CONSTRAINT [ck_sex01]
+GO
+ALTER TABLE [dbo].[Personal]  WITH CHECK ADD  CONSTRAINT [ck_sex] CHECK  (([sexo]='F' OR [sexo]='M'))
+GO
+ALTER TABLE [dbo].[Personal] CHECK CONSTRAINT [ck_sex]
+GO
+/****** Object:  StoredProcedure [dbo].[spLogin]    Script Date: 6/10/2023 18:32:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[spLogin]
+@usuario varchar(10),
+@clave char(5),
+@cod_tipo_cargo char(5)
+
+AS
+  SELECT A.IdAcceso,P.apellidos+', '+P.nombre AS ApeNom
+  FROM Personal P INNER JOIN Acceso A
+  ON A.Cod_personal=P.Cod_personal
+  WHERE A.usuario=@usuario AND A.clave=@clave and A.cod_tipo_cargo=@cod_tipo_cargo
+GO
+USE [master]
+GO
+ALTER DATABASE [IndieDB] SET  READ_WRITE 
+GO

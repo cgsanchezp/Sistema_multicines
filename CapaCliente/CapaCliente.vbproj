@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D4A7E753-7FE0-4BE0-871A-7CFBCC3D165B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>CapaCliente</RootNamespace>
+    <AssemblyName>CapaCliente</AssemblyName>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <StartupObject>CapaCliente.FrmAcceso</StartupObject>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>CapaCliente.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>CapaCliente.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admistrador\FrmControl_personal.Designer.vb">
+      <DependentUpon>FrmControl_personal.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Admistrador\FrmControl_personal.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Almacen\FrmAgregarProducto.Designer.vb">
+      <DependentUpon>FrmAgregarProducto.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Almacen\FrmAgregarProducto.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Almacen\FrmAlmacen.Designer.vb">
+      <DependentUpon>FrmAlmacen.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Almacen\FrmAlmacen.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Boleteria\FrmBol.Designer.vb">
+      <DependentUpon>FrmBol.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Boleteria\FrmBol.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Caja\frmCaj.Designer.vb">
+      <DependentUpon>frmCaj.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Caja\frmCaj.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Index\FrmAcceso.Designer.vb">
+      <DependentUpon>FrmAcceso.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Index\FrmAcceso.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Index\frmLogin.Designer.vb">
+      <DependentUpon>frmLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Index\frmLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admistrador\FrmAdm.Designer.vb">
+      <DependentUpon>FrmAdm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Admistrador\FrmAdm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Seguridad\FrmSeg.Designer.vb">
+      <DependentUpon>FrmSeg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Seguridad\FrmSeg.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tecnicos\FrmTec.Designer.vb">
+      <DependentUpon>FrmTec.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Tecnicos\FrmTec.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Vendedor\FrmVend.Designer.vb">
+      <DependentUpon>FrmVend.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Vendedor\FrmVend.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="varAcceso.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Admistrador\FrmAdm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrmAdm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admistrador\FrmControl_personal.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrmControl_personal.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Almacen\FrmAgregarProducto.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrmAgregarProducto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Almacen\FrmAlmacen.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrmAlmacen.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Boleteria\FrmBol.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrmBol.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Caja\frmCaj.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmCaj.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Index\FrmAcceso.resx">
+      <DependentUpon>FrmAcceso.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Index\frmLogin.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>frmLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Vendedor\FrmVend.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrmVend.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CapaLogica\CapaLogica.vbproj">
+      <Project>{4743DE8C-F579-4ED8-9ECC-09C64B59C42B}</Project>
+      <Name>CapaLogica</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
